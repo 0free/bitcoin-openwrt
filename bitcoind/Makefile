@@ -1,27 +1,15 @@
-#
-# Author: Jimmy Situ <web@jimmystone.cn>
-# Address:1KHujLT4AzQwQKSLEUSbcergqv7fMnQNXA 
-#
-# This is free and unencumbered software released into the public domain.
-# For details see the UNLICENSE file at the root of the source tree.
-#
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bitcoind
-
-ifeq ($(CONFIG_BITCOIND),y)
-	PKG_VERSION:=v0.12
-	PKG_REV:=080457c4ee97e38aa8e59de89bf3d78d1de142aa
-endif
-
+PKG_VERSION:=22.x
 PKG_RELEASE:=1
 PKG_INSTALL:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.bz2
-ifeq ($(CONFIG_BITCOIND),y)
-	PKG_SOURCE_URL:=git://github.com/bitcoin/bitcoin.git
-endif
+PKG_SOURCE_URL:=https://github.com/SaifAlSubhi/bitcoin.git
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_HASH:=a35d5b99332e0d152a33a47bf6d924165efda7f077980a7bcbd976c0312dd961
+PKG_MIRROR_HASH:=7159775aa93c7e1bb644f0f289cf3f6c5d06eff2a80a477270d093cb41bd273d
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -52,14 +40,16 @@ define Package/$(PKG_NAME)/config
 	endmenu
 endef
 
-TARGET_CFLAGS  += -std=c99
-TARGET_LDFLAGS += -Wl,-rpath-link=$(STAGING_DIR)/usr/lib
+TARGET_CFLAGS += -std=c11 -std=c++17
+TARGET_LDFLAGS += -L=$(STAGING_DIR)/usr/lib,-I$(STAGING_DIR)/usr/include
 
-ifeq ($(CONFIG_BITCOIND),y)
-	CONFIGURE_ARGS += --without-miniupnpc
-	CONFIGURE_ARGS += --disable-wallet
-	CONFIGURE_ARGS += --with-boost-libdir=$(STAGING_DIR)/usr/lib
-endif
+CONFIGURE_ARGS += --without-miniupnpc
+CONFIGURE_ARGS += --disable-wallet
+CONFIGURE_ARGS += --disable-tests
+CONFIGURE_ARGS += --disable-iptv6
+CONFIGURE_ARGS += --disable-ccache
+CONFIGURE_ARGS += --enable-reduce-exports
+CONFIGURE_ARGS += --with-boost-libdir=$(STAGING_DIR)/usr/lib
 
 define Build/Compile
 	$(call Build/Compile/Default)
@@ -70,9 +60,11 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/etc/config
 
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/bitcoind  	$(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/bitcoin-cli   $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/test_bitcoin  $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/bitcoind       $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/bitcoin-cli    $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/bitcoin-tx     $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/bitcoin-util   $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/bench_bitcoin  $(1)/usr/bin
 
 ifeq ($(CONFIG_BITCOIND),y)
 	$(INSTALL_BIN) $(FILES_DIR)/bitcoind-monitor        $(1)/usr/bin/bitcoind-monitor
