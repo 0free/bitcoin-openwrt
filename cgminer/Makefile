@@ -26,6 +26,30 @@ ifeq ($(CONFIG_CGMINER_AVALON7),y)
 	PKG_VERSION:=git-$(shell git ls-remote https://github.com/Canaan-Creative/cgminer cgminer.xnsub | cut -f1 | cut -c1-7)
 	PKG_REV:=cgminer.xnsub
 endif
+ifeq ($(CONFIG_CGMINER_AVALON8),y)
+	PKG_VERSION:=git-$(shell git ls-remote https://github.com/Canaan-Creative/cgminer avalon8 | cut -f1 | cut -c1-7)
+	PKG_REV:=avalon8
+endif
+ifeq ($(CONFIG_CGMINER_AVALON850),y)
+	PKG_VERSION:=git-$(shell git ls-remote https://github.com/Canaan-Creative/cgminer avalon850 | cut -f1 | cut -c1-7)
+	PKG_REV:=avalon850
+endif
+ifeq ($(CONFIG_CGMINER_AVALON8_LP),y)
+	PKG_VERSION:=git-$(shell git ls-remote https://github.com/Canaan-Creative/cgminer avalon8_lp | cut -f1 | cut -c1-7)
+	PKG_REV:=avalon8_lp
+endif
+ifeq ($(CONFIG_CGMINER_AVALON9),y)
+	PKG_VERSION:=git-$(shell git ls-remote https://github.com/Canaan-Creative/cgminer avalon9 | cut -f1 | cut -c1-7)
+	PKG_REV:=avalon9
+endif
+ifeq ($(CONFIG_CGMINER_AVALON911),y)
+	PKG_VERSION:=git-$(shell git ls-remote https://github.com/Canaan-Creative/cgminer avalon911 | cut -f1 | cut -c1-7)
+	PKG_REV:=avalon911
+endif
+ifeq ($(CONFIG_CGMINER_AVALONLC3),y)
+	PKG_VERSION:=git-$(shell git ls-remote https://github.com/Canaan-Creative/cgminer avalonlc3 | cut -f1 | cut -c1-7)
+	PKG_REV:=avalonlc3
+endif
 
 PKG_RELEASE:=1
 PKG_INSTALL:=1
@@ -40,6 +64,24 @@ ifeq ($(CONFIG_CGMINER_AVALON6),y)
 	PKG_SOURCE_URL:=git://github.com/Canaan-Creative/cgminer.git
 endif
 ifeq ($(CONFIG_CGMINER_AVALON7),y)
+	PKG_SOURCE_URL:=git://github.com/Canaan-Creative/cgminer.git
+endif
+ifeq ($(CONFIG_CGMINER_AVALON8),y)
+	PKG_SOURCE_URL:=git://github.com/Canaan-Creative/cgminer.git
+endif
+ifeq ($(CONFIG_CGMINER_AVALON850),y)
+	PKG_SOURCE_URL:=git://github.com/Canaan-Creative/cgminer.git
+endif
+ifeq ($(CONFIG_CGMINER_AVALON8_LP),y)
+	PKG_SOURCE_URL:=git://github.com/Canaan-Creative/cgminer.git
+endif
+ifeq ($(CONFIG_CGMINER_AVALON9),y)
+	PKG_SOURCE_URL:=git://github.com/Canaan-Creative/cgminer.git
+endif
+ifeq ($(CONFIG_CGMINER_AVALON911),y)
+	PKG_SOURCE_URL:=git://github.com/Canaan-Creative/cgminer.git
+endif
+ifeq ($(CONFIG_CGMINER_AVALONLC3),y)
 	PKG_SOURCE_URL:=git://github.com/Canaan-Creative/cgminer.git
 endif
 PKG_SOURCE_PROTO:=git
@@ -92,6 +134,24 @@ endif
 ifeq ($(CONFIG_CGMINER_AVALON7),y)
 	CONFIGURE_ARGS += --enable-avalon7 CFLAGS=-DSTRATUM_USER_AGENT=\\\"a7\\\"
 endif
+ifeq ($(CONFIG_CGMINER_AVALON8),y)
+	CONFIGURE_ARGS += --enable-avalon8 CFLAGS=-DSTRATUM_USER_AGENT=\\\"a8\\\"
+endif
+ifeq ($(CONFIG_CGMINER_AVALON850),y)
+	CONFIGURE_ARGS += --enable-avalon8 CFLAGS=-DSTRATUM_USER_AGENT=\\\"a8\\\"
+endif
+ifeq ($(CONFIG_CGMINER_AVALON8_LP),y)
+	CONFIGURE_ARGS += --enable-avalon8 CFLAGS=-DSTRATUM_USER_AGENT=\\\"a8\\\"
+endif
+ifeq ($(CONFIG_CGMINER_AVALON9),y)
+	CONFIGURE_ARGS += --enable-avalon9 CFLAGS=-DSTRATUM_USER_AGENT=\\\"a9\\\"
+endif
+ifeq ($(CONFIG_CGMINER_AVALON911),y)
+	CONFIGURE_ARGS += --enable-avalon9 CFLAGS=-DSTRATUM_USER_AGENT=\\\"a9\\\"
+endif
+ifeq ($(CONFIG_CGMINER_AVALONLC3),y)
+	CONFIGURE_ARGS += --enable-avalonlc3 CFLAGS=-DSTRATUM_USER_AGENT=\\\"a9\\\"
+endif
 
 ifeq ($(CONFIG_TARGET_brcm2708_RaspberryPi),)
 	CONFIGURE_ARGS += --without-curses
@@ -140,6 +200,42 @@ ifeq ($(CONFIG_CGMINER_AVALON7),y)
 	$(INSTALL_BIN) $(FILES_DIR)/cgminer.avalon7.init           $(1)/etc/init.d/cgminer
 	$(CP)          $(FILES_DIR)/cgminer.avalon7.config         $(1)/etc/config/cgminer
 	$(INSTALL_BIN)          $(FILES_DIR)/mm-avalon7-upgrade             $(1)/usr/bin/mmupgrade
+endif
+ifeq ($(CONFIG_CGMINER_AVALON8),y)
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer-avalon8-monitor        $(1)/usr/bin/cgminer-monitor
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer.avalon8.init           $(1)/etc/init.d/cgminer
+	$(CP)          $(FILES_DIR)/cgminer.avalon8.config         $(1)/etc/config/cgminer
+	$(INSTALL_BIN)          $(FILES_DIR)/mm-avalon8-upgrade             $(1)/usr/bin/mmupgrade
+endif
+ifeq ($(CONFIG_CGMINER_AVALON850),y)
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer-avalon8-monitor        $(1)/usr/bin/cgminer-monitor
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer.avalon8.init           $(1)/etc/init.d/cgminer
+	$(CP)          $(FILES_DIR)/cgminer.avalon850.config         $(1)/etc/config/cgminer
+	$(INSTALL_BIN)          $(FILES_DIR)/mm-avalon8-upgrade             $(1)/usr/bin/mmupgrade
+endif
+ifeq ($(CONFIG_CGMINER_AVALON8_LP),y)
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer-avalon8-monitor        $(1)/usr/bin/cgminer-monitor
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer.avalon8.init           $(1)/etc/init.d/cgminer
+	$(CP)          $(FILES_DIR)/cgminer.avalon8_lp.config      $(1)/etc/config/cgminer
+	$(INSTALL_BIN)          $(FILES_DIR)/mm-avalon8-upgrade             $(1)/usr/bin/mmupgrade
+endif
+ifeq ($(CONFIG_CGMINER_AVALON9),y)
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer-avalon9-monitor        $(1)/usr/bin/cgminer-monitor
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer.avalon9.init           $(1)/etc/init.d/cgminer
+	$(CP)          $(FILES_DIR)/cgminer.avalon9.config         $(1)/etc/config/cgminer
+	$(INSTALL_BIN)          $(FILES_DIR)/mm-avalon9-upgrade             $(1)/usr/bin/mmupgrade
+endif
+ifeq ($(CONFIG_CGMINER_AVALON911),y)
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer-avalon9-monitor        $(1)/usr/bin/cgminer-monitor
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer.avalon9.init           $(1)/etc/init.d/cgminer
+	$(CP)          $(FILES_DIR)/cgminer.avalon9.config         $(1)/etc/config/cgminer
+	$(INSTALL_BIN)          $(FILES_DIR)/mm-avalon9-upgrade             $(1)/usr/bin/mmupgrade
+endif
+ifeq ($(CONFIG_CGMINER_AVALONLC3),y)
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer-avalonlc3-monitor        $(1)/usr/bin/cgminer-monitor
+	$(INSTALL_BIN) $(FILES_DIR)/cgminer.avalonlc3.init           $(1)/etc/init.d/cgminer
+	$(CP)          $(FILES_DIR)/cgminer.avalonlc3.config         $(1)/etc/config/cgminer
+	$(INSTALL_BIN)          $(FILES_DIR)/mm-avalonlc3-upgrade             $(1)/usr/bin/mmupgrade
 endif
 endef
 
