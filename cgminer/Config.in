@@ -6,7 +6,7 @@ config CGMINER_AVALON2
 	default n
 config CGMINER_AVALON4
 	bool "Enable Avalon4(A3222) support"
-	default y
+	default n
 config CGMINER_AVALON6
 	bool "Enable Avalon6(A3218) support"
 	default n
@@ -24,7 +24,7 @@ config CGMINER_AVALON8_LP
 	default n
 config CGMINER_AVALON9
 	bool "Enable Avalon9(A3206) support"
-	default n
+	default y
 config CGMINER_AVALON911
 	bool "Enable Avalon911 support"
 	default n
