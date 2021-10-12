@@ -40,7 +40,7 @@ define Package/$(PKG_NAME)/config
 endef
 
 TARGET_CFLAGS += -std=c11 -std=c++17
-TARGET_LDFLAGS += -L=$(STAGING_DIR)/usr/lib,-I$(STAGING_DIR)/usr/include
+TARGET_LDFLAGS += 
 
 CONFIGURE_ARGS += --without-miniupnpc
 CONFIGURE_ARGS += --disable-wallet
