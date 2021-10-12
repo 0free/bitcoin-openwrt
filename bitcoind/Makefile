@@ -2,7 +2,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bitcoind
-PKG_VERSION:=22.x
+PKG_VERSION:=22.0
 PKG_RELEASE:=1
 PKG_INSTALL:=1
 
