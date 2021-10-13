@@ -4,24 +4,24 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=bitcoind
 PKG_VERSION:=22.0
 PKG_RELEASE:=1
-PKG_INSTALL:=1
 
-PKG_SOURCE_URL:=https://github.com/SaifAlSubhi/bitcoin.git
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_URL:=https://github.com/SaifAlSubhi/bitcoin.git
 PKG_HASH:=a35d5b99332e0d152a33a47bf6d924165efda7f077980a7bcbd976c0312dd961
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_SOURCE_VERSION:=$(PKG_VERSION)
 
 PKG_FIXUP:=autoreconf
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
 	SECTION:=utils
 	CATEGORY:=Utilities
-	TITLE:=Bitcoin full node
+	TITLE:=$(PKG_NAME)
 	URL:=https://github.com/bitcoin/bitcoin
 	DEPENDS := +libcurl +libpthread +jansson +udev +libncurses 
 	DEPENDS += +boost-chrono +boost-filesystem +boost-program_options +boost-thread +boost-test
