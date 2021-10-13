@@ -23,7 +23,7 @@ define Package/$(PKG_NAME)
 	CATEGORY:=Utilities
 	TITLE:=$(PKG_NAME)
 	URL:=https://github.com/bitcoin/bitcoin
-	DEPENDS := +libcurl +libpthread +jansson +udev +libncurses 
+	DEPENDS := +libcurl +libpthread +jansson +libncurses 
 	DEPENDS += +boost-chrono +boost-filesystem +boost-program_options +boost-thread +boost-test
 	DEPENDS += +libopenssl +libstdcpp +libevent2 +libevent2-pthreads
 endef
