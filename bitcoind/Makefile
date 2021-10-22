@@ -8,6 +8,7 @@ PKG_RELEASE:=1
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/bitcoin/bitcoin.git
 PKG_HASH:=a35d5b99332e0d152a33a47bf6d924165efda7f077980a7bcbd976c0312dd961
+PKG_MIRROR_HASH:=d8d020fbf206682463623b982e51843f935cf45abea26d101ff1cd1dc3305591
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_VERSION)
@@ -21,7 +22,6 @@ define Package/$(PKG_NAME)
 	SECTION:=utils
 	CATEGORY:=Utilities
 	TITLE:=$(PKG_NAME)
-	URL:=https://github.com/bitcoin/bitcoin
 	DEPENDS := +libcurl +libpthread +jansson +udev +libncurses 
 	DEPENDS += +boost-chrono +boost-filesystem +boost-program_options +boost-thread +boost-test
 	DEPENDS += +libopenssl +libstdcpp +libevent2 +libevent2-pthreads
