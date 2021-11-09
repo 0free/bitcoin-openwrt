@@ -39,7 +39,7 @@ define Package/$(PKG_NAME)/config
 endef
 
 TARGET_CFLAGS += -std=c11 -std=c++17
-TARGET_LDFLAGS += 
+TARGET_LDFLAGS += -L=$(STAGING_DIR)/usr/lib,-I$(STAGING_DIR)/usr/include
 
 CONFIGURE_ARGS += --without-miniupnpc
 CONFIGURE_ARGS += --disable-wallet
@@ -54,6 +54,7 @@ define Build/Compile
 endef
 
 define Package/$(PKG_NAME)/install
+
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/etc/config
@@ -70,7 +71,7 @@ ifeq ($(CONFIG_BITCOIND),y)
 	$(CP)          $(FILES_DIR)/bitcoind.config         $(1)/etc/config/bitcoind
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(CP)          $(FILES_DIR)/bitcoind.uci-defaults   $(1)/etc/uci-defaults/01-bitcoind
-	$(INSTALL_DIR) $(1)/root/.bitcoin
+	$(INSTALL_DIR) $(1)/.bitcoin
 	$(CP)          $(FILES_DIR)/bitcoin.conf            $(1)/root/.bitcoin/bitcoin.conf
 endif
 
