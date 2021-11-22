@@ -5,7 +5,7 @@ PKG_NAME:=bitcoind
 PKG_VERSION:=22.x
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE:=bitcoind-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/bitcoin/bitcoin.git
 PKG_HASH:=a35d5b99332e0d152a33a47bf6d924165efda7f077980a7bcbd976c0312dd961
 PKG_MIRROR_HASH:=d8d020fbf206682463623b982e51843f935cf45abea26d101ff1cd1dc3305591
@@ -18,20 +18,20 @@ PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/$(PKG_NAME)
+define Package/bitcoind
 	SECTION:=utils
 	CATEGORY:=Utilities
-	TITLE:=$(PKG_NAME)
+	TITLE:=bitcoind
 	DEPENDS := +libcurl +libpthread +jansson +udev +libncurses 
 	DEPENDS += +boost-chrono +boost-filesystem +boost-program_options +boost-thread +boost-test
 	DEPENDS += +libopenssl +libstdcpp +libevent2 +libevent2-pthreads
 endef
 
-define Package/$(PKG_NAME)/description
+define Package/bitcoind/description
 Bitcoind is a bitcoin full node
 endef
 
-define Package/$(PKG_NAME)/config
+define Package/bitcoind/config
 	menu "Configuration"
 	depends on PACKAGE_bitcoind
 	source "$(SOURCE)/Config.in"
@@ -39,7 +39,7 @@ define Package/$(PKG_NAME)/config
 endef
 
 TARGET_CFLAGS += -std=c11 -std=c++17
-TARGET_LDFLAGS += -L=$(STAGING_DIR)/usr/lib,-I$(STAGING_DIR)/usr/include
+TARGET_LDFLAGS += -L$(STAGING_DIR)/usr/lib,-I$(STAGING_DIR)/usr/include
 
 CONFIGURE_ARGS += --without-miniupnpc
 CONFIGURE_ARGS += --disable-wallet
@@ -53,9 +53,10 @@ define Build/Compile
 	$(call Build/Compile/Default)
 endef
 
-define Package/$(PKG_NAME)/install
+define Package/bitcoind/install
 
 	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/usr/root
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/etc/config
 
@@ -77,4 +78,4 @@ endif
 
 endef
 
-$(eval $(call BuildPackage,$(PKG_NAME)))
+$(eval $(call BuildPackage,bitcoind))
