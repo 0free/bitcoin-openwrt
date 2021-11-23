@@ -1,9 +1,8 @@
 #!/bin/sh /etc/rc.common
-START=99
 
+START=99
 APP=bitcoind
 PID_FILE=/var/run/$APP.pid
-
 
 start() {
     local _rpcuser
