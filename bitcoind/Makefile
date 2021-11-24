@@ -56,7 +56,8 @@ endef
 define Package/bitcoind/install
 
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_DIR) $(1)/usr/root
+	$(INSTALL_DIR) $(1)/usr/include
+	$(INSTALL_DIR) $(1)/usr/lib
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
@@ -68,13 +69,16 @@ define Package/bitcoind/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/bitcoin-util   $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/bench_bitcoin  $(1)/usr/bin
 
+	$(INSTALL_DATA)		$(PKG_INSTALL_DIR)/usr/include/bitcoinconsensus.h	$(1)/usr/include
+	$(INSTALL_DATA)		$(PKG_INSTALL_DIR)/usr/lib/libbitcoinconsensus.so*	$(1)/usr/lib
+
 ifeq ($(CONFIG_BITCOIND),y)
-	$(CP)		$(FILES_DIR)/bitcoind-monitor			$(1)/usr/bin/bitcoind-monitor
-	$(CP)		$(FILES_DIR)/bitcoind.init				$(1)/etc/init.d/bitcoind
-	$(CP)		$(FILES_DIR)/bitcoind.config			$(1)/etc/config/bitcoind
-	$(CP)		$(FILES_DIR)/fstab						$(1)/etc/config/fstab
-	$(CP)		$(FILES_DIR)/bitcoind.uci-defaults		$(1)/etc/uci-defaults/01-bitcoind
-	$(CP)		$(FILES_DIR)/bitcoin.conf				$(1)/root/.bitcoin/bitcoin.conf
+	$(INSTALL_BIN)		$(FILES_DIR)/bitcoind-monitor	$(1)/usr/bin/bitcoind-monitor
+	$(INSTALL_BIN)		$(FILES_DIR)/bitcoind.init		$(1)/etc/init.d/bitcoind
+	$(INSTALL_CONF)		$(FILES_DIR)/bitcoind.config			$(1)/etc/config/bitcoind
+	$(INSTALL_CONF)		$(FILES_DIR)/fstab						$(1)/etc/config/fstab
+	$(INSTALL_CONF)		$(FILES_DIR)/bitcoind.uci-defaults		$(1)/etc/uci-defaults/01-bitcoind
+	$(INSTALL_CONF)		$(FILES_DIR)/bitcoin.conf				$(1)/root/.bitcoin
 endif
 
 endef
